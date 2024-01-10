@@ -1,4 +1,4 @@
-meconst path = require("path");
+const path = require("path");
 const fs = require("fs");
 const Vec3 = require("vec3");
 
