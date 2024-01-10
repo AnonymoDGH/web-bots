@@ -1,0 +1,143 @@
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/main.css">
+	<title>SlaveBot</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+
+<body>
+	<div id="sidebar">
+		<button tab="setup" class="active">Setup</button>
+		<button tab="actions">Actions</button>
+		<button tab="utility">Utility</button>
+		<button tab="cheats">Cheats</button>
+		<button tab="console">Console</button>
+	</div>
+	<div id="content">
+		<div tab="setup">
+			<label>Setup</label>
+			<br>
+			<input id="data-host" placeholder="Host"></input>
+			<input type="number" id="data-port" min="1024" max="65535" value="25565"></input>
+			<input id="data-nickname" placeholder="Nickname"></input>
+			<select id="data-version">
+				<option>1.8.8</option>
+				<option>1.8.9</option>
+				<option>1.9</option>
+				<option>1.10.2</option>
+				<option>1.11.2</option>
+				<option>1.12.2</option>
+				<option>1.13.2</option>
+				<option>1.14.4</option>
+				<option>1.15.2</option>
+				<option>1.16.4</option>
+				<option>1.16.5</option>
+				<option>1.17.4</option>
+				<option>1.18.2</option>
+				<option>1.19.4</option>
+				<option selected>1.20.2</option>
+			</select>
+			<button onclick="connectBot()">Connect</button>
+			<button>Disconnect</button>
+		</div>
+
+		<div tab="actions" hidden>
+			<label>Bot Actions</label>
+			<br>
+			<div class="feature">
+				<label>Come to player</label>
+				<br>
+				<input id="data-come-target" placeholder="Nickname"></input>
+				<br>
+				<label>Radius:</label>
+				<br>
+				<input id="data-come-radius" type="range" min="1" max="5" value="5"></input>
+				<label for="data-come-radius">5</label>
+				<br>
+				<button onclick="come()">Come</button>
+				<button onclick="socket.emit('botStop')">Stop</button>
+			</div>
+			<div class="feature">
+				<label>Goto XYZ</label>
+				<br>
+				<label>X:</label>
+				<input id="data-goto-x" type="number"></input>
+				<br>
+				<label>Y:</label>
+				<input id="data-goto-y" type="number"></input>
+				<br>
+				<label>Z:</label>
+				<input id="data-goto-z" type="number"></input>
+				<br>
+				<button onclick="gotopos()">Goto</button>
+				<button onclick="socket.emit('botStop')">Stop</button>
+			</div>
+			<div class="feature">
+				<label>Follow player</label>
+				<br>
+				<input id="data-follow-target" placeholder="Nickname"></input>
+				<br>
+				<button onclick="follow()">Follow</button>
+				<button onclick="socket.emit('followStop')">Stop</button>
+			</div>
+			<div class="feature">
+				<label>Mine block</label>
+				<br>
+				<input id="data-block-id" placeholder="diamond_ore"></input>
+				<button onclick="mineStart()">Mine</button>
+				<button onclick="socket.emit('botStop')">Stop</button>
+			</div>
+			<div class="feature">
+				<label>Inventory dump</label>
+				<br>
+				<button onclick="socket.emit('invDump')">Dump</button>
+			</div>
+			<div class="feature">
+				<label>Select slot</label>
+				<select id="data-slot">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					<option>8</option>
+					<option>9</option>
+				</select>
+				<button onclick="selectSlot()">Select</button>
+			</div>
+			<div class="feature">
+				<input id="data-message"></input>
+				<button onclick="say()">Say</button>
+			</div>
+		</div>
+		<div tab="utility" hidden>
+		</div>
+		<div tab="cheats" hidden>
+			<label>Cheats</label>
+			<br>
+			<div class="feature">
+				<label>AutoArmor</label>
+				<br>
+				<label>Enabled</label>
+				<input id="data-autoarmor" type="checkbox" onchange="autoarmor()"></input>
+			</div>
+			<br>
+				<div class="feature">
+				<label>AutoEat</label>
+				<br>
+				<label>Enabled</label>
+				<input id="data-autoarmor" type="checkbox" onchange="autoeat()"></input>
+			</div>
+		</div>
+		<div tab="console" hidden>
+<div id="chat-history" style="height: 400px; overflow-y: auto; background-color: black;"></div>
+		</div>
+	</div>
+	<script src="/js/app.js"></script>
+</body>
+
+</html>
